@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RDP UP • F1 Reaction Test</title>
+
+<!-- PWA / FULLSCREEN -->
+
+<meta name="theme-color" content="#050505">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+    -webkit-tap-highlight-color:transparent;
+    user-select:none;
+    touch-action:manipulation;
+}
+
+html,
+body{
+    overflow:hidden;
+}
+
+body{
+
+    background:#050505;
+
+    color:white;
+
+    font-family:'Poppins',sans-serif;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:12px;
+}
+
+.app{
+
+    width:100%;
+    max-width:540px;
+
+    background:#0a0a0a;
+
+    border-radius:28px;
+
+    border:1px solid rgba(255,20,147,.12);
+
+    overflow:hidden;
+}
+
+.top{
+
+    padding:22px 18px 18px;
+
+    border-bottom:1px solid rgba(255,255,255,.03);
+}
+
+.logo{
+
+    display:flex;
+    justify-content:center;
+}
+
+.logo img{
+
+    width:100%;
+    max-width:280px;
+
+    object-fit:contain;
+}
+
+.instructions{
+
+    text-align:center;
+
+    padding:18px 20px 12px;
+
+    line-height:1.5;
+
+    font-size:15px;
+
+    color:#dcdcdc;
+}
+
+.instructions span{
+
+    color:#ff1493;
+    font-weight:600;
+}
+
+.lights-wrapper{
+
+    display:flex;
+    justify-content:center;
+
+    gap:10px;
+
+    padding:18px 12px;
+}
+
+.light-column{
+
+    width:64px;
+    height:330px;
+
+    background:black;
+
+    border-radius:22px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+
+    border:2px solid rgba(255,20,147,.18);
+}
+
+.bulb{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#181818;
+}
+
+.stats{
+
+    margin:8px 16px 16px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    border:1px solid rgba(255,255,255,.04);
+}
+
+.stat{
+
+    background:#101010;
+
+    text-align:center;
+
+    padding:18px 10px;
+}
+
+.stat:first-child{
+
+    border-right:1px solid rgba(255,255,255,.04);
+}
+
+.stat h4{
+
+    color:#9f9f9f;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+
+    font-weight:500;
+}
+
+.stat p{
+
+    color:#ff1493;
+
+    font-size:40px;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-weight:800;
+}
+
+.status{
+
+    text-align:center;
+
+    color:#ff1493;
+
+    font-size:17px;
+
+    min-height:24px;
+
+    margin-bottom:12px;
+}
+
+.button-area{
+
+    padding:0 16px 18px;
+}
+
+#startBtn{
+
+    width:100%;
+
+    padding:26px 16px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#131313;
+
+    color:#ff1493;
+
+    font-size:38px;
+    font-weight:800;
+
+    font-family:'Orbitron',sans-serif;
+
+    border:2px solid rgba(255,20,147,.22);
+
+    outline:none;
+}
+
+#startBtn small{
+
+    display:block;
+
+    margin-top:8px;
+
+    color:#d5d5d5;
+
+    font-size:15px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-weight:400;
+}
+
+.history{
+
+    margin:0 16px 18px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.04);
+}
+
+.history-title{
+
+    background:#101010;
+
+    text-align:center;
+
+    padding:16px;
+
+    font-size:17px;
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+}
+
+.history-list{
+
+    background:#0c0c0c;
+
+    max-height:220px;
+
+    overflow-y:auto;
+}
+
+.history-item{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 16px;
+
+    border-bottom:1px solid rgba(255,255,255,.03);
+}
+
+.history-item:last-child{
+
+    border-bottom:none;
+}
+
+.left{
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.number{
+
+    color:#ff1493;
+
+    font-size:18px;
+    font-weight:700;
+}
+
+.time{
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:17px;
+}
+
+.best{
+
+    color:#ff1493;
+}
+
+.clock{
+
+    color:#777;
+
+    font-size:12px;
+}
+
+@media(max-width:540px){
+
+    .light-column{
+
+        width:52px;
+        height:290px;
+    }
+
+    .bulb{
+
+        width:34px;
+        height:34px;
+    }
+
+    #startBtn{
+
+        font-size:30px;
+    }
+
+    .stat p{
+
+        font-size:30px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+    <div class="top">
+
+        <div class="logo">
+            <img src="rdp-logo.png" alt="RDP UP">
+        </div>
+
+    </div>
+
+    <div class="instructions">
+        Las luces se encenderán en <span>3 segundos</span>.<br>
+        Cuando se apaguen, toca inmediatamente.
+    </div>
+
+    <div class="lights-wrapper" id="lightsWrapper"></div>
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <h4>BEST TIME</h4>
+
+            <p id="bestTime">0.000</p>
+
+        </div>
+
+        <div class="stat">
+
+            <h4>ATTEMPTS</h4>
+
+            <p id="attempts">0</p>
+
+        </div>
+
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="button-area">
+
+        <button id="startBtn">
+
+            JUMP START!
+
+            <small>Toca para empezar</small>
+
+        </button>
+
+    </div>
+
+    <div class="history">
+
+        <div class="history-title">
+            SESSION TIMES
+        </div>
+
+        <div class="history-list" id="historyList"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+/*
+    CONFIG
+*/
+
+const TOTAL_COLUMNS = 5;
+const BULBS_PER_COLUMN = 5;
+
+/*
+    ELEMENTS
+*/
+
+const lightsWrapper = document.getElementById('lightsWrapper');
+
+const startBtn = document.getElementById('startBtn');
+
+const bestTimeText = document.getElementById('bestTime');
+
+const attemptsText = document.getElementById('attempts');
+
+const historyList = document.getElementById('historyList');
+
+const statusText = document.getElementById('status');
+
+/*
+    STORAGE
+*/
+
+let bestTime = localStorage.getItem('rdp-best-time');
+
+if(bestTime){
+
+    bestTimeText.textContent = Number(bestTime).toFixed(3);
+}
+
+/*
+    STATE
+*/
+
+const columns = [];
+const allBulbs = [];
+
+let started = false;
+let waiting = false;
+let canClick = false;
+
+let reactionStart = 0;
+
+let attempts = 0;
+
+const sessionTimes = [];
+
+/*
+    CREATE LIGHTS
+*/
+
+for(let c = 0; c < TOTAL_COLUMNS; c++){
+
+    const column = document.createElement('div');
+
+    column.className = 'light-column';
+
+    const bulbs = [];
+
+    for(let b = 0; b < BULBS_PER_COLUMN; b++){
+
+        const bulb = document.createElement('div');
+
+        bulb.className = 'bulb';
+
+        column.appendChild(bulb);
+
+        bulbs.push(bulb);
+
+        allBulbs.push(bulb);
+    }
+
+    lightsWrapper.appendChild(column);
+
+    columns.push(bulbs);
+}
+
+/*
+    CLEAR LIGHTS
+*/
+
+function clearLights(){
+
+    for(let i = 0; i < allBulbs.length; i++){
+
+        allBulbs[i].style.background = '#181818';
+    }
+}
+
+/*
+    ACTIVATE COLUMN
+*/
+
+function activateColumn(index){
+
+    const bulbs = columns[index];
+
+    for(let i = 0; i < bulbs.length; i++){
+
+        bulbs[i].style.background = '#ff1493';
+    }
+}
+
+/*
+    RESET
+*/
+
+function resetGame(){
+
+    started = false;
+    waiting = false;
+    canClick = false;
+}
+
+/*
+    HISTORY
+*/
+
+function renderHistory(){
+
+    historyList.innerHTML = '';
+
+    for(let i = 0; i < sessionTimes.length; i++){
+
+        const item = sessionTimes[i];
+
+        const row = document.createElement('div');
+
+        row.className = 'history-item';
+
+        const isBest = Number(bestTime) === item.time;
+
+        const d = item.date;
+
+        const h = String(d.getHours()).padStart(2,'0');
+        const m = String(d.getMinutes()).padStart(2,'0');
+        const s = String(d.getSeconds()).padStart(2,'0');
+
+        row.innerHTML = `
+
+        <div class="left">
+
+            <div class="number">
+                ${i + 1}.
+            </div>
+
+            <div class="time ${isBest ? 'best' : ''}">
+                ${item.time.toFixed(3)} ${isBest ? '★' : ''}
+            </div>
+
+        </div>
+
+        <div class="clock">
+            ${h}:${m}:${s}
+        </div>
+
+        `;
+
+        historyList.appendChild(row);
+    }
+}
+
+/*
+    START GAME
+*/
+
+async function startGame(){
+
+    if(started) return;
+
+    started = true;
+
+    waiting = true;
+
+    canClick = false;
+
+    clearLights();
+
+    statusText.textContent = 'Prepárate...';
+
+    /*
+        5 COLUMNAS
+        3 SEGUNDOS
+    */
+
+    for(let i = 0; i < TOTAL_COLUMNS; i++){
+
+        activateColumn(i);
+
+        await new Promise(r=>setTimeout(r,600));
+    }
+
+    /*
+        RANDOM 2-5s
+    */
+
+    const randomDelay = 2000 + Math.random() * 3000;
+
+    await new Promise(r=>setTimeout(r,randomDelay));
+
+    /*
+        ULTRA FAST
+    */
+
+    reactionStart = performance.now();
+
+    clearLights();
+
+    waiting = false;
+
+    canClick = true;
+
+    statusText.textContent = '¡YA!';
+}
+
+/*
+    REACTION
+*/
+
+function registerReaction(){
+
+    if(waiting){
+
+        statusText.textContent = 'FALSE START';
+
+        resetGame();
+
+        return;
+    }
+
+    if(!canClick) return;
+
+    const reaction = (performance.now() - reactionStart) / 1000;
+
+    const finalTime = Number(reaction.toFixed(3));
+
+    attempts++;
+
+    attemptsText.textContent = attempts;
+
+    sessionTimes.unshift({
+
+        time:finalTime,
+        date:new Date()
+    });
+
+    renderHistory();
+
+    if(!bestTime || finalTime < Number(bestTime)){
+
+        bestTime = finalTime;
+
+        localStorage.setItem('rdp-best-time',finalTime);
+
+        bestTimeText.textContent = finalTime.toFixed(3);
+    }
+
+    statusText.textContent = `${finalTime.toFixed(3)}s`;
+
+    resetGame();
+}
+
+/*
+    ULTRA FAST INPUT
+*/
+
+startBtn.addEventListener('pointerdown',()=>{
+
+    if(!started){
+
+        startGame();
+
+    }else{
+
+        registerReaction();
+    }
+
+},{passive:true});
+
+document.body.addEventListener('pointerdown',(e)=>{
+
+    if(e.target !== startBtn && started){
+
+        registerReaction();
+    }
+
+},{passive:true});
+
+</script>
+
+</body>
+</html>
